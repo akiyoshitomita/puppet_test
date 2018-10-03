@@ -9,7 +9,7 @@ class profile::web(){
 
   file  { '/var/www/html/index.html' :
     ensure  => file,
-    content => epp('profile/index.html.epp',$servername = $facts['trusted']['certname']) ,
+    content => epp('profile/index.html.epp',$servername = $facts['hostname']) ,
   } ->
 
   file { '/var/www/html/P-Icon-Amber-White-sm.png' :
@@ -17,10 +17,10 @@ class profile::web(){
     source => 'puppet:///modules/profile/P-Icon-Amber-White-sm.png'
   }
 
-  @@haproxy::balancermember { $facts['trusted']['certname'] :
+  @@haproxy::balancermember { $facts['hostname'] :
     listening_service => 'puppet00',
     ports             => '80',
-    server_names      => $facts['trusted']['certname'],
+    server_names      => $facts['hostname'],
     ipaddresses       => $facts['ipaddress'],
     options           => 'check',
   }
