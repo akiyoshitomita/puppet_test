@@ -9,7 +9,7 @@ class profile::web(){
 
   file  { '/var/www/html/index.html' :
     ensure  => file,
-    content => epp('profile/index.html.epp',{$servername => $facts['hostname']}) ,
+    content => epp('profile/index.html.epp',{ servername => $facts['hostname']　}) ,
   } ->
 
   file { '/var/www/html/P-Icon-Amber-White-sm.png' :
